@@ -157,9 +157,10 @@ ENV LANG $LANG_VAR
 # Install bcftools
 ############################
 WORKDIR $OPT_SRC/bcftools
-ARG VERSION_HTSLIB="1.13"
+ARG VERSION_HTSLIB="1.10.2"
 RUN wget -q https://github.com/samtools/bcftools/releases/download/${VERSION_HTSLIB}/bcftools-${VERSION_HTSLIB}.tar.bz2 && \
     tar -xjf bcftools-${VERSION_HTSLIB}.tar.bz2 && \
+    rm bcftools-${VERSION_HTSLIB}.tar.bz2 && \
     cd bcftools-${VERSION_HTSLIB} && \
     ./configure --enable-libgsl && \
     make && \
@@ -178,4 +179,4 @@ RUN echo >> $OPT/.profile && \
     # Run INSTALL.pl and remove the ensemb-vep tests and travis
     ./INSTALL.pl -a a -l && rm -rf t travisci .travis.yml
 
-
+LABEL org.opencontainers.image.source https://github.com/bryce-turner/oci-builds
